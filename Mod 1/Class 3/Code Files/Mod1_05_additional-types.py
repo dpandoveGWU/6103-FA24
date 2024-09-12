@@ -120,7 +120,7 @@ adict = { "name": "Einstein", "last": alist }
 acopy1 = adict
 acopy2 = adict.copy()
 
-acopy2["name"] = Divya"
+acopy2["name"] ="divya"
 print(adict)
 print(acopy2)
 
@@ -148,10 +148,11 @@ acopy3 = copy.copy(adict)
 acopy4 = copy.deepcopy(adict)
 
 acopy1[2] = 'duo'
-acopy1['last'][3]='nose'
+#acopy1['last'][3]='nose'
 
 print(adictionary3)
 print("acopy1", acopy1)
 print("acopy2",acopy2)
 print("acopy3",acopy3)
 print("acopy4",acopy4)
+# %%
