@@ -32,35 +32,14 @@ def fact2():
     n = eval(input('Enter n: '))
 
     # Check if an integer indefinitely
-    while n<-0 and not isinstance(n, int): # int is a class
+    while not isinstance(n, int) and n <= 0: # int is a class
         n = eval(input('Please enter a positive integer: '))
     
     # Factorial computation
     return factorial(n)
 
 # Function call
-fact2(-4)
-
-#Another way to do it - A better way to do it
-def fact2():
-    # Input validation: Convert input to integer and ensure it's positive
-    try:
-        n = int(input('Enter n: '))
-    except ValueError:
-        n = -1  # Assign an invalid value to trigger the while loop
-
-    # Check if input is a positive integer
-    while n < 0:
-        try:
-            n = int(input('Please enter a positive integer: '))
-        except ValueError:
-            n = -1  # Continue to prompt if input is not a valid integer
-
-    # Factorial computation
-    return factorial(n)
-
-# Example call
-print(fact2())
+fact2()
 
 
 # %%
@@ -77,11 +56,14 @@ def fact3():
         attempts += 1
         if attempts < max_att:
             n = eval(input('Please enter a positive integer: '))
+
     # Factorial computation
-    return factorial(n) if attempts < max_att else -1
+    return factorial(n) 
+
+if attempts < max_att else -1
 
 # Function call
-fact3(4)
+fact3(-4)
 
 
 # %%
