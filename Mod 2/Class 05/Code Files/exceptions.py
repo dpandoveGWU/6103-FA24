@@ -10,6 +10,37 @@
 
 
 # %%
+# Throwing exceptions
+# Read: https://docs.python.org/3/library/exceptions.html
+def factorial(n):
+  if type(n) != int or n < 0:
+    raise ValueError # raise an exception
+  
+  prod = 1
+  for i in range(1, n + 1):
+    prod *= i
+  return prod
+
+
+
+# %%
+# We need to signal the user program that something went wrong
+# . . .
+n = -2
+try: 
+    x = factorial(n)
+except ValueError:
+    x = -1 # default value
+    print('There was a problem with the factorial.')
+# . . .
+print('We have landed!')
+
+
+
+
+
+
+# %%
 import math
 def quadratic(a, b, c):
   discRoot = math.sqrt (b * b - 4 * a * c)
@@ -18,19 +49,7 @@ def quadratic(a, b, c):
   root2 = (-b - discRoot) / (2 * a)
 
   return (root1, root2)
-
-
-# %%
-# Question: what are some possible ways the function execution go wrong? 
-#
-#
-#
-
-
-# %%
-# If the exceptions are not handled, the entire program stops.
-# Try
-
+# What are the possible errors here?
 
 
 # %%
@@ -50,7 +69,6 @@ finally: # Will execute no matter what
   print('We are about to land on the Moon!!')
 
 print('We just landed on the Moon!!!') # The mission does not stop
-
 
 
 
@@ -97,33 +115,6 @@ except Exception as err:
 
 print(i)
 
-
-
-# %%
-# Throwing exceptions
-# Read: https://docs.python.org/3/library/exceptions.html
-def factorial(n):
-  if type(n) != int or n < 0:
-    raise ValueError # raise an exception
-  
-  prod = 1
-  for i in range(1, n + 1):
-    prod *= i
-  return prod
-
-
-
-# %%
-# We need to signal the user program that something went wrong
-# . . .
-n = -2
-try: 
-    x = factorial(n)
-except ValueError:
-    x = -1 # default value
-    print('There was a problem with the factorial.')
-# . . .
-print('We have landed!')
 
 
 # %%
