@@ -22,17 +22,17 @@ def fact1():
     return factorial(n)
 
 # Function call
-factorial(5)
+fact1()
 
 # %%
-# Activity: 1a
+
 # A more user-friendly factorial
 # Iterate until the input is a positive integer
 def fact2():
     n = eval(input('Enter n: '))
 
     # Check if an integer indefinitely
-    while not isinstance(n, int) or n <= 0: # int is a class
+    while not isinstance(n, int) and n <= 0: # int is a class
         n = eval(input('Please enter a positive integer: '))
     
     # Factorial computation
@@ -43,7 +43,6 @@ fact2()
 
 
 # %%
-# Activity: 1c
 # A more user-friendly and resource-friendly factorial
 # Limit the number of attempts
 def fact3():
@@ -53,16 +52,18 @@ def fact3():
     attempts = 1
 
     # Check if reached the maximum
-    while (attempts < max_att) and (not isinstance(n, int) or n <= 0): # int is a class
+    while (attempts < max_att) and (not isinstance(n, int) and n <= 0): # int is a class
         attempts += 1
         if attempts < max_att:
             n = eval(input('Please enter a positive integer: '))
 
     # Factorial computation
-    return factorial(n) if attempts < max_att else -1
+    return factorial(n) 
+
+if attempts < max_att else -1
 
 # Function call
-fact3()
+fact3(-4)
 
 
 # %%
