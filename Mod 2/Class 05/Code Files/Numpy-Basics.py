@@ -19,8 +19,8 @@ np.set_printoptions(precision=4, suppress=True)
 #
 import numpy as np
 
-my_arr = np.arange(1_000_000)
-my_list = list(range(1_000_000))
+my_arr = np.arange(1000000)
+my_list = list(range(1000000))
 
 #%%
 %timeit my_arr2 = my_arr * 2
@@ -33,22 +33,22 @@ data = np.array([[1.5, -0.1, 3], [0, -3, 6.5]])
 data
 #%%
 #Shape and Type 
-data.shape
-data.dtype
+print(data.shape)
+print(data.dtype)
 #%%
 data1 = [6, 7.5, 8, 0, 1]
 arr1 = np.array(data1)
-arr1
+print(arr1)
 #%%
 data2 = [[1, 2, 3, 4], [5, 6, 7, 8]]
 arr2 = np.array(data2)
-arr2
+print(arr2)
 #%%
-arr2.ndim
-arr2.shape
+print(arr2.ndim)
+print(arr2.shape)
 #%%
-arr1.dtype
-arr2.dtype
+print(arr1.dtype)
+print(arr2.dtype)
 #%%
 np.zeros(10)
 np.zeros((3, 6))
@@ -58,18 +58,18 @@ np.arange(15)
 #%%
 arr1 = np.array([1, 2, 3], dtype=np.float64)
 arr2 = np.array([1, 2, 3], dtype=np.int32)
-arr1.dtype
-arr2.dtype
+print(arr1.dtype)
+print(arr2.dtype)
 
 #%%
 arr = np.array([1, 2, 3, 4, 5])
-arr.dtype
+print(arr.dtype)
 float_arr = arr.astype(np.float64)
-float_arr
-float_arr.dtype
+print(float_arr)
+print(float_arr.dtype)
 #%%
 arr = np.array([3.7, -1.2, -2.6, 0.5, 12.9, 10.1])
-arr
+print(arr)
 arr.astype(np.int32)
 #%%
 numeric_strings = np.array(["1.25", "-9.6", "42"], dtype=np.string_)
@@ -81,119 +81,121 @@ calibers = np.array([.22, .270, .357, .380, .44, .50], dtype=np.float64)
 int_array.astype(calibers.dtype)
 #%%
 zeros_uint32 = np.zeros(8, dtype="u4")
-zeros_uint32
+print(zeros_uint32)
 #%%
 arr = np.array([[1., 2., 3.], [4., 5., 6.]])
-arr
-arr * arr
-arr - arr
+print(arr)
+print(arr * arr)
+print(arr - arr)
 #%%
-1 / arr
-arr ** 2
+print(1 / arr)
+print(arr ** 2)
 #%%
 arr2 = np.array([[0., 4., 1.], [7., 2., 12.]])
-arr2
-arr2 > arr
+print(arr2)
+print(arr2 > arr)
 #%%
+#Slicing
 arr = np.arange(10)
-arr
-arr[5]
-arr[5:8]
+print(arr)
+print(arr[5])
+print(arr[5:8])
 arr[5:8] = 12
-arr
+print(arr)
 #%%
 arr_slice = arr[5:8]
-arr_slice
+print(arr_slice)
 #%%
 arr_slice[1] = 12345
-arr
+print(arr)
 #%%
 arr_slice[:] = 64
-arr
+print(arr)
 #%%
 arr2d = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-arr2d[2]
+print(arr2d[2])
 #%%
-arr2d[0][2]
-arr2d[0, 2]
+print(arr2d[0][2])
+print(arr2d[0, 2])
 #%%
 arr3d = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
-arr3d
+print(arr3d)
 #%%
-arr3d[0]
+print(arr3d[0])
 #%%
 old_values = arr3d[0].copy()
 arr3d[0] = 42
-arr3d
+print(arr3d)
 arr3d[0] = old_values
-arr3d
+print(arr3d)
 #%%
 arr3d[1, 0]
 #%%
 x = arr3d[1]
-x
-x[0]
+print(x)
+print(x[0])
 #%%
-arr
+print(arr)
 arr[1:6]
 
 #%%
-arr2d
-arr2d[:2]
+print(arr2d)
+print(arr2d[:2])
 
 #%%
-arr2d[:2, 1:]
+print(arr2d[:2, 1:])
 
 #%%
 
 lower_dim_slice = arr2d[1, :2]
 #%%
 
-lower_dim_slice.shape
+print(lower_dim_slice.shape)
 #%%
 
-arr2d[:2, 2]
+print(arr2d[:2, 2])
 #%%
-arr2d[:, :1]
+print(arr2d[:, :1])
 
 #%%
 arr2d[:2, 1:] = 0
-arr2d
+print(arr2d)
 
 #%%
 names = np.array(["Bob", "Joe", "Will", "Bob", "Will", "Joe", "Joe"])
 data = np.array([[4, 7], [0, 2], [-5, 6], [0, 0], [1, 2],
                  [-12, -4], [3, 4]])
-names
-data
+print(names)
+print(data)
 
 #%%
 #Transposing Arrays and Swapping Axes
 
 arr = np.arange(15).reshape((3, 5))
-arr
-arr.T
+print(arr)
+print(arr.T)
 
 #%%
 #Dot matrix computations
 arr = np.array([[0, 1, 0], [1, 2, -2], [6, 3, 2], [-1, 0, -1], [1, 0, 1]])
-arr
-np.dot(arr.T, arr)
+print(arr)
+print(arr.T)
+print(np.dot(arr.T, arr))
 # (0×0)+(1×1)+(6×6)+(−1×−1)+(1×1)=0+1+36+1+1=39
 
 #%%
 #Swap the indicated axes to rearrange the data
-arr
-arr.swapaxes(0, 1)
+print(arr)
+print(arr.swapaxes(0, 1))
 
 #%%
 # Pseudorandom Number Generation
 samples = np.random.standard_normal(size=(4, 4))
-samples
+print(samples)
 
 #%%
 from random import normalvariate
-N = 1_000_000
+N = 1000000
 %timeit samples = [normalvariate(0, 1) for _ in range(N)]
 %timeit np.random.standard_normal(N)
 
@@ -206,29 +208,30 @@ type(rng)
 #%%
 #Unarry ufuncs
 arr = np.arange(10)
-arr
-np.sqrt(arr)
-np.exp(arr)
+print(arr)
+print(np.sqrt(arr))
+print(np.exp(arr))
 
 #%%
 #Binary ufuncs
 x = rng.standard_normal(8)
 y = rng.standard_normal(8)
-x
-y
-np.maximum(x, y)
+print(x)
+print(y)
+print(np.maximum(x, y))
 
 #%%
 #Array oriented progamming with Arrays
 #Example: evaluate the function sqrt(x^2 + y^2) across a regular grid of values.
 points = np.arange(-5, 5, 0.01) # 100 equally spaced points
+print(points)
 xs, ys = np.meshgrid(points, points)
-ys
-xs
+print(ys)
+print(xs)
 #%%
 #evaluating the function is a matter of writing the same expression you would write with two point
 z = np.sqrt(xs ** 2 + ys ** 2)
-z
+print(z)
 
 
 # %%
@@ -251,33 +254,33 @@ cond = np.array([True, False, True, True, False])
 
 result = [(x if c else y)
           for x, y, c in zip(xarr, yarr, cond)]
-result
+print(result)
 
 # %%
 result = np.where(cond, xarr, yarr)
-result
+print(result)
 # %%
 #Sorting
 arr = rng.standard_normal(6)
-arr
+print(arr)
 arr.sort()
-arr
+print(arr)
 
 # %%
 #sorting array along an axis by passing axis number
 arr = rng.standard_normal((5, 3))
-arr
+print(arr)
 arr.sort(axis=0)
-arr
+print(arr)
 arr.sort(axis=1)
-arr
+print(arr)
 # %%
 #Linea Algebra
 x = np.array([[1., 2., 3.], [4., 5., 6.]])
 y = np.array([[6., 23.], [-1, 7], [8, 9]])
-x
-y
-x.dot(y)
+print("x:",x)
+print("y:",y)
+print("dot product:",x.dot(y))
 
 # %%
 #x.dot(y) is equivalent to np.dot(x, y):

@@ -25,15 +25,6 @@ import numpy as np
 np.__version__
 
 
-# %%
-# Discussion Activity:
-#
-# Why use matrices for data science?
-# - 
-# -
-# -
-
-
 
 # %%
 #
@@ -75,13 +66,13 @@ print( list2D )
 
 # - These are 3 by 4 matrices. Two-dimensional arrays. 
 # Question: how do you get the element '32' in list5?
-list2D[2][1]
+
 
 
 # %%
 # Activity: 2
 # Question: how do you get the row of [31,32,33,34] in list5?
-list2D[2]
+
 
 
 
@@ -89,7 +80,7 @@ list2D[2]
 # Activity: 3
 # Question: How to you get the first column ???
 # List comprehension: https://realpython.com/list-comprehension-python/
-[ row[1] for row in list2D ]
+
 
 
 
