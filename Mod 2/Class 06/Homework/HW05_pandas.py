@@ -15,12 +15,11 @@
 import os
 import numpy as np
 import pandas as pd
-import rfit
 
-dats = rfit.dfapi('Dats_grades')
+
+dats = pd.read_csv('Dats_grades.csv')
 print("\nReady to continue.")
 
-rfit.dfchk(dats)
 
 # What are the variables in the df? 
 # What are the data types for these variables?
