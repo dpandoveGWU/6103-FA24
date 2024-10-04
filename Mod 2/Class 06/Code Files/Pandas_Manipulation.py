@@ -208,7 +208,7 @@ frame.sort_index(axis="columns", ascending=False)
 # The rank methods breaks ties by assigning each group the mean rank
 frame = pd.DataFrame({"b": [4.3, 7, -3, 2], "a": [0, 1, 0, 1],
                       "c": [-2, 5, 8, -2.5]})
-frame
+print(frame)
 frame.rank(axis="columns")
 
 #%%

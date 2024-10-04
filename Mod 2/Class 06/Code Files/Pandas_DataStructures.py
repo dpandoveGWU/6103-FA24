@@ -96,3 +96,5 @@ frame3.T
 #%%
 #Convert to 2-d numpy array
 frame3.to_numpy()
+
+# %%

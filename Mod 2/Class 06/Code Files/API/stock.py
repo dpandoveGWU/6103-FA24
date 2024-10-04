@@ -2,7 +2,13 @@
 # Use Yahoo finance API
 # %pip install yfinance
 import yfinance as yf
+import pandas as pd
 
+# %%
+msft = yf.Ticker("MSFT")
+info = msft.info
+info_df = pd.DataFrame(info)
+info_df.head()
 
 #%%
 # https://github.com/ranaroussi/yfinance 

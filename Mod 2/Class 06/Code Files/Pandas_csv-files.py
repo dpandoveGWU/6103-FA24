@@ -40,3 +40,5 @@ os.getcwd()  # make sure you know what folder you are in
 os.chdir('.') # do whatever you need to get to the right folder, 
 # or make sure you include the full path when saving the file
 hprice.to_csv('hprice_clean.csv')  
+
+# %%
