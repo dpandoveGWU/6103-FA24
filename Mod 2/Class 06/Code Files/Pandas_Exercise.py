@@ -14,7 +14,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import pylab as py
 #import statsmodels.api as sm
-from scipy import stats
+#from scipy import stats
 
 # %%
 #Q1

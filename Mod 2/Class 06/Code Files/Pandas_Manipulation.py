@@ -14,6 +14,7 @@ pd.options.display.max_rows = 20
 pd.options.display.max_columns = 20
 pd.options.display.max_colwidth = 80
 np.set_printoptions(precision=4, suppress=True)
+
 #Reindexing
 #An important method on pandas objects is reindex, 
 # which means to create a new object with the values rearranged to align with the new index.
@@ -39,7 +40,7 @@ obj = pd.Series(np.arange(5.), index=["a", "b", "c", "d", "e"])
 print(obj)
 new_obj = obj.drop("c")
 print("New Object\n")
-new_obj
+print(new_obj)
 print("More Drops\n:")
 obj.drop(["d", "c"])
       
@@ -70,7 +71,8 @@ print("1,3: \n", obj[[1, 3]])
 #Access a group of rows and columns by label(s) or a boolean array.
 #iloc:https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.iloc.html#
 #Purely integer-location based indexing for selection by position.
-obj.loc[["b", "a", "d"]]
+print(obj.loc[["b", "a", "d"]])
+
 #The reason to prefer loc is because of the different treatment of integers 
 # when indexing with []. Regular []-based indexing will treat integers as labels 
 # if the index contains integers, so the behavior differs depending on the data type of the index. 
@@ -105,6 +107,7 @@ obj2.loc["b":"c"]
 #%%
 #Assigning values
 obj2.loc["b":"c"] = 5
+print(obj2)
 
 #%%
 #Selection on DataFrame with loc and iloc
@@ -160,8 +163,10 @@ print(df1 + df2)
 #Think of this as union between two data frames
 #%%
 #What will happen if there are no common columns or rows between dataframes
-df1 = pd.DataFrame({"A": [1, 2]})
-df2 = pd.DataFrame({"B": [3, 4]})
+df1 = pd.DataFrame({"A": [1, 2,6]})
+print(df1)
+df2 = pd.DataFrame({"B": [3, 4,6]})
+print(df2)
 df1 + df2
 #%%
 #Arithmetic methods with fill values
@@ -208,8 +213,8 @@ frame.sort_index(axis="columns", ascending=False)
 # The rank methods breaks ties by assigning each group the mean rank
 frame = pd.DataFrame({"b": [4.3, 7, -3, 2], "a": [0, 1, 0, 1],
                       "c": [-2, 5, 8, -2.5]})
-frame
-frame.rank(axis="columns")
+print(frame)
+print(frame.rank(axis="columns"))
 
 #%%
 #Summarizing and Computing Descriptive Statistics

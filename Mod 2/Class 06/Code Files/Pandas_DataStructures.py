@@ -70,7 +70,7 @@ print("Head\n",frame.head())
 print("Tail\n",frame.tail())
 #%%
 #Create a DataFrame
-pd.DataFrame(data, columns=["year", "state", "pop"])
+pd.DataFrame(data, columns=["Year", "State", "Pop"])
 frame2 = pd.DataFrame(data, columns=["year", "state", "pop", "debt"])
 frame2
 print(frame2.columns)

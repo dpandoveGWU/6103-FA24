@@ -2,12 +2,18 @@
 # Use Yahoo finance API
 # %pip install yfinance
 import yfinance as yf
+import pandas as pd
 
 
 #%%
 # https://github.com/ranaroussi/yfinance 
 
 msft = yf.Ticker("MSFT")
+info = msft.info
+info_df = pd.DataFrame(info)
+info_df.head()
+
+#%%
 msft.info  # get stock info
 msft.actions    # show actions (dividends, splits)
 msft.dividends    # show dividends
