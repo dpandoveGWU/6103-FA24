@@ -2,20 +2,13 @@
 # To add a new markdown cell, type '#%%[markdown]'
 
 #%%
-# Basic packages here. 
-# Feel free to import other packages if you need them.
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt 
-import seaborn as sns # if you (optionally) want to show fancy plots
-import rfit 
+import matplotlib.pyplot as plt
+import seaborn as sns #optional
 
-world1 = rfit.dfapi('World1', 'id')
-world1.to_csv("world1.csv")
-# world1 = pd.read_csv("world1.csv", index_col="id") # use this instead of hitting the server if csv is on local
-world2 = rfit.dfapi('World2', 'id')
-world2.to_csv("world2.csv")
-# world2 = pd.read_csv("world2.csv", index_col="id") # use this instead of hitting the server if csv is on local
+world1 = pd.read_csv("world1.csv", index_col="id")
+world2 = pd.read_csv("world2.csv", index_col="id") 
 
 print("\nReady to continue.")
 
@@ -49,7 +42,7 @@ print("\nReady to continue.")
 # Use plots, maybe pivot tables, and statistical tests (optional), whatever you deem appropriate 
 # and convincing, to draw your conclusions. 
 # 
-# There are no must-dos, should-dos, cannot-dos. The more convincing your analysis, 
+# There are no must-dos, should-dos, cannot-dos. The more convenicing your analysis, 
 # the higher the grade. It's an art.
 #
 
