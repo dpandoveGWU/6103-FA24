@@ -4,8 +4,8 @@
 #%% [markdown]
 #
 # HW Numpy 
-# ## By: xxx
-# ### Date: xxxxxxx
+# ## By: Wali Siddiqui
+# ### Date: 4th Oct 2024
 #
 
 
@@ -13,6 +13,8 @@
 # NumPy
 
 import numpy as np
+
+# %%
 
 # %%
 # ######  QUESTION 1      QUESTION 1      QUESTION 1   ##########
@@ -37,13 +39,28 @@ print("nparray2b:",nparray2b)
 # Write your codes, 
 # and describe what you find.
 
+print(nparray2 == nparray2)
+
+# (Answer) based on the above logical operation the two arrays are the same as all elements retun to true indicating all elemets within yhe array are equal 
+
 # %%
 # ######  Part 1b      Part 1b      Part 1b   ##########
 # 
 # 1.b) What kind of object is i, j, and idlabels? Their shapes? Data types? Strides?
 # 
 # write your codes here
-#
+print("idlabels is an object of type:", type(idlabels))
+print("i is an object of type:", type(i))
+print("j is an object of type:", type(j))
+print("idlabels has a shape of:", idlabels.shape)
+print("i has a shape of:", i.shape)
+print("j has a shape of:", j.shape)
+print("idlabels is of data type:", idlabels.dtype)
+print("i is of data type:", i.dtype)
+print("j is of data type:", j.dtype)
+print("idlabels has the following strides:", idlabels.strides)
+print("i has the following strides:", i.strides)
+print("j has the following strides:", j.strides)
 
 # %%
 # ######  Part 1c      Part 1c      Part 1c   ##########
@@ -52,10 +69,21 @@ print("nparray2b:",nparray2b)
 # before and after the change.
 # 
 # write your codes here
-# Describe what you find. Is that what you expect?
-#
-# Also try to change i[0] = 8. Print out the i and idlabels again.
+print("Value of i before the change:", i)
+print("Value of idlabels before the change:", idlabels)
 
+i[0, 0] = 8
+
+print("Value of i after the change:", i)
+print("Value of idlables after the change:", idlabels)
+
+# Describe what you find. Is that what you expect?
+# There is a change to the first element in i (0, 0) which is not replaced to 8 instead of the orginal
+# zero. If we also check idlabels the first matrix that is the row index matrix has also changed similar to thta of i
+# Also try to change i[0] = 8. Print out the i and idlabels again.
+i[0] = 8
+print("i:", i)
+print("idlabels:", idlabels)
 
 # %%
 # ######  Part 1d      Part 1d      Part 1d   ##########
@@ -67,8 +95,22 @@ print("nparray2b:",nparray2b)
 # 
 # Also use the "==" operator and "is" operator to test the 2 arrays. 
 # write your codes here
-#
+# shallow copy
+nparray2c = nparray2.copy()
+nparray2c[1, 1] = 0
 
+# check matrices
+print("nparray2:", nparray2)
+print("nparray2c:", nparray2c)
+
+# since we make a shallow copy of nparray2 and store it in nparray2c, changing an element of nparray2c
+# does not have any effect on the elemets of nparray2
+
+print("nparray2 == nparray2c:", nparray2 == nparray2c) 
+print("nparray2 is nparray2c:", nparray2 is nparray2c) 
+
+# The elementwise comparison will show that the arrays are not fully equal because of the change at position [1,1]
+# The is operator between the two arrays will retun Flase since both the arrays are different objects
 #%%
 # ######  Part 1e      Part 1e      Part 1e   ##########
 # Let us try again this time using the intrinsic .copy() function of numpy array objects. 
