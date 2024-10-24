@@ -26,7 +26,6 @@ print(df)
 
 # %%
 grouped = df["data1"].groupby(df["key1"])
-grouped
 
 # %%
 grouped.mean()
@@ -40,7 +39,6 @@ means
 
 
 means.unstack()
-
 # %%
 #In this example, the group keys are all Series, though they could be any arrays of the right length:
 states = np.array(["OH", "CA", "CA", "OH", "OH", "CA", "OH"])
@@ -84,6 +82,7 @@ for (k1, k2), group in df.groupby(["key1", "key2"]):
 # %%
 #computing a dictionary of the data pieces as a one-liner
 pieces = {name: group for name, group in df.groupby("key1")}
+#pieces
 pieces["b"]
 
 # %%
@@ -277,7 +276,7 @@ by_year.apply(regress, yvar="AAPL", xvars=["SPX"])
 
 # %%
 #Pivot Tables and Cross-Tabulation
-tips.head()
+print(tips.head())
 tips.pivot_table(index=["day", "smoker"],
                  values=["size", "tip", "tip_pct", "total_bill"])
 

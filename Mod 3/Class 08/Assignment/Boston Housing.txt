@@ -1,0 +1,9 @@
+This exercise involves the Boston housing data set.  
+
+(a) To begin, load in the Boston data set form the ISLP package
+(b) How many rows are in this data set? How many columns? What  do the rows and columns represent?  
+(c) Make some pairwise scatterplots of the predictors (columns) in  this data set.
+(d) Are any of the predictors associated with per capita crime rate?  If so, explain the relationship.  
+(e) Do any of the suburbs of Boston appear to have particularly  high crime rates? Tax rates? Pupil-teacher ratios? Comment on  the range of each predictor.  
+(h) Which suburb of Boston has lowest median value of owner occupied homes? 
+(i) In this data set, how many of the suburbs average more than  seven rooms per dwelling?
