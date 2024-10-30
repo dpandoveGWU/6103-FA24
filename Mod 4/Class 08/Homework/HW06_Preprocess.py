@@ -33,17 +33,21 @@ import matplotlib.pyplot as plt
 
 ################Assignment Starts here#####################################################
 ##############Read each instruction below very carefully##################################
+# Step 1: Preprocessing
 # When we import using pandas, we need to do pre-processing 
-# So clean up the columns - You can use some of the functions like the total family income, and number of children. 
-# Other ones like worked hour last week, etc, you'll need a new function. 
-# Happy: change it to numeric codes (ordinal variable)
+# So clean up the columns - You can create functions like the total family income, number of children, worked hour last week, etc.
+# Some other columns can be manipulated like:
 # Ballot: just call it a, b, or c 
 # Marital status, it's up to you whether you want to rename the values. 
-# After the preprocessing, make these plots
+
+#Step 2: Visualization
+# After the preprocessing, make these plots..
 # Box plot for hours worked last week, for the different marital status. (So x is marital status, and y is hours worked.) 
 # Violin plot for income vs happiness, 
 # (To use the hue/split option, we need a variable with 2 values/binomial, which 
 # we do not have here. So no need to worry about using hue/split for this violinplot.)
+
+#Step 3: Hypothesis Testing (using visualization)
 # Use happiness as numeric, make scatterplot with jittering in both x and y between happiness and number of children. Choose what variable you want for hue/color.
 # If you have somewhat of a belief that happiness is caused/determined/affected by number of children, or the other 
 # way around (having babies/children are caused/determined/affected by happiness), then put the dependent 
