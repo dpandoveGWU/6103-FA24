@@ -90,7 +90,11 @@ fig.subplots_adjust(wspace=0, hspace=0)
 #Line plots can additionally have markers to highlight the actual data points. Since matplotlib's plot function creates a continuous line plot, interpolating between points, it can occasionally be unclear where the points lie. The marker can be supplied as an additional styling option
 
 # %%
+<<<<<<< Updated upstream
 fig = plt.figure()
+=======
+fig=plt.figure()
+>>>>>>> Stashed changes
 ax = fig.add_subplot()
 ax.plot(np.random.standard_normal(30).cumsum(), color="black",
         linestyle="dashed", marker="o");

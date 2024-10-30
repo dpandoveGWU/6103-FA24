@@ -6,11 +6,19 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+<<<<<<< Updated upstream
     <dc:date>2024-10-17T18:08:34.000346</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
       <dc:title>Matplotlib v3.9.2, https://matplotlib.org/</dc:title>
+=======
+    <dc:date>2024-10-17T18:11:17.492315</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.7.1, https://matplotlib.org/</dc:title>
+>>>>>>> Stashed changes
      </cc:Agent>
     </dc:creator>
    </cc:Work>
@@ -43,7 +51,11 @@ L 509.76 135
 L 509.76 85.104 
 L 241.92 85.104 
 z
+<<<<<<< Updated upstream
 " clip-path="url(#pdcfefccf5d)" style="opacity: 0.3; stroke: #000000; stroke-linejoin: miter"/>
+=======
+" clip-path="url(#pf9185f36e4)" style="opacity: 0.3; stroke: #000000; stroke-linejoin: miter"/>
+>>>>>>> Stashed changes
    </g>
    <g id="patch_4">
     <path d="M 576.72 367.848 
@@ -56,25 +68,41 @@ C 486.862992 292.027043 476.28 304.719426 476.28 317.952
 C 476.28 331.184574 486.862992 343.876957 505.698195 353.2338 
 C 524.533398 362.590643 550.083001 367.848 576.72 367.848 
 z
+<<<<<<< Updated upstream
 " clip-path="url(#pdcfefccf5d)" style="fill: #0000ff; opacity: 0.3; stroke: #0000ff; stroke-linejoin: miter"/>
+=======
+" clip-path="url(#pf9185f36e4)" style="fill: #0000ff; opacity: 0.3; stroke: #0000ff; stroke-linejoin: miter"/>
+>>>>>>> Stashed changes
    </g>
    <g id="patch_5">
     <path d="M 208.44 334.584 
 L 342.36 251.424 
 L 241.92 184.896 
 z
+<<<<<<< Updated upstream
 " clip-path="url(#pdcfefccf5d)" style="fill: #008000; opacity: 0.5; stroke: #008000; stroke-linejoin: miter"/>
+=======
+" clip-path="url(#pf9185f36e4)" style="fill: #008000; opacity: 0.5; stroke: #008000; stroke-linejoin: miter"/>
+>>>>>>> Stashed changes
    </g>
    <g id="matplotlib.axis_1">
     <g id="xtick_1">
      <g id="line2d_1">
       <defs>
+<<<<<<< Updated upstream
        <path id="mfac7c3a323" d="M 0 0 
+=======
+       <path id="ma6410aaece" d="M 0 0 
+>>>>>>> Stashed changes
 L 0 3.5 
 " style="stroke: #000000; stroke-width: 0.8"/>
       </defs>
       <g>
+<<<<<<< Updated upstream
        <use xlink:href="#mfac7c3a323" x="108" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+=======
+       <use xlink:href="#ma6410aaece" x="108" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+>>>>>>> Stashed changes
       </g>
      </g>
      <g id="text_1">
@@ -119,7 +147,11 @@ z
     <g id="xtick_2">
      <g id="line2d_2">
       <g>
+<<<<<<< Updated upstream
        <use xlink:href="#mfac7c3a323" x="241.92" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+=======
+       <use xlink:href="#ma6410aaece" x="241.92" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+>>>>>>> Stashed changes
       </g>
      </g>
      <g id="text_2">
@@ -160,7 +192,11 @@ z
     <g id="xtick_3">
      <g id="line2d_3">
       <g>
+<<<<<<< Updated upstream
        <use xlink:href="#mfac7c3a323" x="375.84" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+=======
+       <use xlink:href="#ma6410aaece" x="375.84" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+>>>>>>> Stashed changes
       </g>
      </g>
      <g id="text_3">
@@ -196,7 +232,11 @@ z
     <g id="xtick_4">
      <g id="line2d_4">
       <g>
+<<<<<<< Updated upstream
        <use xlink:href="#mfac7c3a323" x="509.76" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+=======
+       <use xlink:href="#ma6410aaece" x="509.76" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+>>>>>>> Stashed changes
       </g>
      </g>
      <g id="text_4">
@@ -243,7 +283,11 @@ z
     <g id="xtick_5">
      <g id="line2d_5">
       <g>
+<<<<<<< Updated upstream
        <use xlink:href="#mfac7c3a323" x="643.68" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+=======
+       <use xlink:href="#ma6410aaece" x="643.68" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+>>>>>>> Stashed changes
       </g>
      </g>
      <g id="text_5">
@@ -299,7 +343,11 @@ z
     <g id="xtick_6">
      <g id="line2d_6">
       <g>
+<<<<<<< Updated upstream
        <use xlink:href="#mfac7c3a323" x="777.6" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+=======
+       <use xlink:href="#ma6410aaece" x="777.6" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+>>>>>>> Stashed changes
       </g>
      </g>
      <g id="text_6">
@@ -332,12 +380,20 @@ z
     <g id="ytick_1">
      <g id="line2d_7">
       <defs>
+<<<<<<< Updated upstream
        <path id="mc824dcfb58" d="M 0 0 
+=======
+       <path id="me6c33c3f91" d="M 0 0 
+>>>>>>> Stashed changes
 L -3.5 0 
 " style="stroke: #000000; stroke-width: 0.8"/>
       </defs>
       <g>
+<<<<<<< Updated upstream
        <use xlink:href="#mc824dcfb58" x="108" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+=======
+       <use xlink:href="#me6c33c3f91" x="108" y="384.48" style="stroke: #000000; stroke-width: 0.8"/>
+>>>>>>> Stashed changes
       </g>
      </g>
      <g id="text_7">
@@ -352,7 +408,11 @@ L -3.5 0
     <g id="ytick_2">
      <g id="line2d_8">
       <g>
+<<<<<<< Updated upstream
        <use xlink:href="#mc824dcfb58" x="108" y="317.952" style="stroke: #000000; stroke-width: 0.8"/>
+=======
+       <use xlink:href="#me6c33c3f91" x="108" y="317.952" style="stroke: #000000; stroke-width: 0.8"/>
+>>>>>>> Stashed changes
       </g>
      </g>
      <g id="text_8">
@@ -367,7 +427,11 @@ L -3.5 0
     <g id="ytick_3">
      <g id="line2d_9">
       <g>
+<<<<<<< Updated upstream
        <use xlink:href="#mc824dcfb58" x="108" y="251.424" style="stroke: #000000; stroke-width: 0.8"/>
+=======
+       <use xlink:href="#me6c33c3f91" x="108" y="251.424" style="stroke: #000000; stroke-width: 0.8"/>
+>>>>>>> Stashed changes
       </g>
      </g>
      <g id="text_9">
@@ -382,7 +446,11 @@ L -3.5 0
     <g id="ytick_4">
      <g id="line2d_10">
       <g>
+<<<<<<< Updated upstream
        <use xlink:href="#mc824dcfb58" x="108" y="184.896" style="stroke: #000000; stroke-width: 0.8"/>
+=======
+       <use xlink:href="#me6c33c3f91" x="108" y="184.896" style="stroke: #000000; stroke-width: 0.8"/>
+>>>>>>> Stashed changes
       </g>
      </g>
      <g id="text_10">
@@ -397,7 +465,11 @@ L -3.5 0
     <g id="ytick_5">
      <g id="line2d_11">
       <g>
+<<<<<<< Updated upstream
        <use xlink:href="#mc824dcfb58" x="108" y="118.368" style="stroke: #000000; stroke-width: 0.8"/>
+=======
+       <use xlink:href="#me6c33c3f91" x="108" y="118.368" style="stroke: #000000; stroke-width: 0.8"/>
+>>>>>>> Stashed changes
       </g>
      </g>
      <g id="text_11">
@@ -412,7 +484,11 @@ L -3.5 0
     <g id="ytick_6">
      <g id="line2d_12">
       <g>
+<<<<<<< Updated upstream
        <use xlink:href="#mc824dcfb58" x="108" y="51.84" style="stroke: #000000; stroke-width: 0.8"/>
+=======
+       <use xlink:href="#me6c33c3f91" x="108" y="51.84" style="stroke: #000000; stroke-width: 0.8"/>
+>>>>>>> Stashed changes
       </g>
      </g>
      <g id="text_12">
@@ -448,7 +524,11 @@ L 777.6 51.84
   </g>
  </g>
  <defs>
+<<<<<<< Updated upstream
   <clipPath id="pdcfefccf5d">
+=======
+  <clipPath id="pf9185f36e4">
+>>>>>>> Stashed changes
    <rect x="108" y="51.84" width="669.6" height="332.64"/>
   </clipPath>
  </defs>
