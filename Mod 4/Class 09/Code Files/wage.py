@@ -2,13 +2,13 @@
 from wooldridge import dataWoo
 import pandas as pd
 import numpy as np
-import rfit
 import matplotlib.pyplot as plt
 import seaborn as sns
 from statsmodels.formula.api import ols
 
 # %%
 wage1 = dataWoo('wage1')
+wage1.head()
 
 # %%
 # A curious question is the association of `wage` and `educ`
@@ -31,6 +31,7 @@ plt.show()
 
 # %%
 # Plot the OLS line (without and with hue)
+#this code creates a scatter plot of education versus log-transformed wage, with a linear regression line but no confidence interval. The plot's data points are small and semi-transparent, reducing clutter in the visualization.
 sns.lmplot(x = 'educ', y = 'log_wage', data=wage1, fit_reg = True, ci = None, scatter_kws={'alpha': 0.4, 's': 8 })
 
 # %%
