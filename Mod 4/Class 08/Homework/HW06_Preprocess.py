@@ -39,6 +39,8 @@ import matplotlib.pyplot as plt
 # Some other columns can be manipulated like:
 # Ballot: just call it a, b, or c 
 # Marital status, it's up to you whether you want to rename the values. 
+#You can refer to the accompanying preprocess.py file for better understanding of the dataset and cleaning process. 
+
 
 #Step 2: Visualization
 # After the preprocessing, make these plots..

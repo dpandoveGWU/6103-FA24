@@ -29,7 +29,7 @@ from sklearn import linear_model
 # %%
 # First read in the datasets. 
 dfpizza = pd.read_csv('Pizza.csv')
-
+dfpizza.head()
 # %% [markdown]
 # The dataset is clean. No missing values.  
 # brand -- Pizza brand (class label)  
@@ -74,7 +74,8 @@ plt.show()
 # There are a lot of interesting relationships shown here. 
 # But let us first try the basic linear regression using sklearn
 fatcalfit = linear_model.LinearRegression()  # instantiate the object, with full functionality
-
+#linear_model: This is the module in scikit-learn that contains various linear models, including LinearRegression.
+#fatcalfit defines the kind of model we want to fit
 # %%
 # Fit the model
 model = fatcalfit.fit( xpizza, ypizza )
@@ -82,6 +83,7 @@ model = fatcalfit.fit( xpizza, ypizza )
 # %%
 # Print the coeff and intercept
 model.intercept_.round(5)
+#%%
 model.coef_.round(5)
 
 # %%
@@ -109,6 +111,8 @@ full_split1 = linear_model.LinearRegression() # new instance
 full_split1.fit(X_train1, y_train1)
 y_pred1 = full_split1.predict(X_test1)
 
+#In essence, this code creates and trains a linear regression model using the training data (X_train1 and y_train1). It then uses the model to predict outcomes on new data (X_test1), with y_pred1 containing the predicted values. This approach allows you to assess the model’s predictive accuracy on unseen data by comparing y_pred1 to y_test1.
+#%%
 print('score (train R^2):', full_split1.score(X_train1, y_train1)) # 0.9991344781997908
 print('intercept:', full_split1.intercept_) # 6.200675408951385
 print('coef_:', full_split1.coef_)  # [-0.06211495 -0.02190932  0.02823002 -0.06189928 -0.00402231 -0.02191296] 
