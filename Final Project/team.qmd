@@ -1,0 +1,34 @@
+## Introduction
+- Data science is a *beautiful* combination of team-work and individual-work
+  - Teams:
+    - Define research ambitions and scope
+    - Imagine/envision the landscape of what is possible 
+    - Support, discuss, review and integrate individual contributions
+  - Individuals: 
+    - Conduct the heads-down work that moves question answering forward 
+
+\newpage
+
+## What Makes an Effective Team?
+
+- In 2012, Google researchers began a study to examine what makes teams effective. It was called [**Project Aristotle**](https://rework.withgoogle.com/print/guides/5721312655835136/).
+
+> *Using input from executives across the globe, the research team identified 180 teams to study (115 project teams in engineering and 65 pods in sales) which included a mix of high- and low-performing teams. The study tested how both team composition (e.g., personality traits, sales skills, demographics on the team) and team dynamics (e.g., what it was like to work with teammates) impact team effectiveness.*
+
+> *The researchers found that what really mattered was less about who is on the team, and more about how the team worked together.*
+
+> ***Of the five key dynamics of effective teams that the researchers identified, psychological safety was by far the most important. ***
+
+### Psychological safety: 
+
+> *Psychological safety refers to an individual’s perception of the consequences of taking an interpersonal risk or a belief that a team is safe for risk taking in the face of being seen as ignorant, incompetent, negative, or disruptive. In a team with high psychological safety, teammates feel safe to take risks around their team members. They feel confident that no one on the team will embarrass or punish anyone else for admitting a mistake, asking a question, or offering a new idea.*
+
+> *To measure a team’s level of psychological safety, Edmondson asked team members how strongly they agreed or disagreed with these statements:*
+
+> - *If you make a mistake on this team, it is often held against you.*
+> - *Members of this team are able to bring up problems and tough issues.*
+> - *People on this team sometimes reject others for being different.*
+> - *It is safe to take a risk on this team.*
+> - *It is difficult to ask other members of this team for help.*
+> - *No one on this team would deliberately act in a way that undermines my efforts.*
+> - *Working with members of this team, my unique skills and talents are valued and utilized.*
