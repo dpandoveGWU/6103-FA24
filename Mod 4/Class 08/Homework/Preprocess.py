@@ -11,8 +11,10 @@ print("\nReady to continue.")
 
 #%%
 
-df = df = pd.read_csv("GSS_demographics.csv")
+df = pd.read_csv("GSS_demographics.csv")
 print("\nReady to continue.")
+df.head()
+df.describe()
 
 #%%
 # data from gssexplorer, column info:
@@ -51,6 +53,8 @@ try:
 except: 
   print("Cannot handle to_numeric for column: childs")
   print(df.childs.describe(), '\n', df.childs.value_counts(dropna=False))
+  #Error Handling: This try-except structure ensures that if the conversion fails, the program doesn’t crash and provides information on why it couldn’t convert the column.
+#Data Inspection: The descriptive statistics in both blocks help assess the distribution and contents of childs or childs_convert, assisting with debugging and data preparation.
 # above doesn't work, since there are many strings there
 
 # Okay, so "Dk na" and "Eight or more" are the bad ones we needa strategy for.
@@ -66,6 +70,11 @@ print("\nReady to continue.")
 df['childs_convert'] = df.childs.map(lambda x: np.nan if str(x).strip() == 'Dk na' else '8' if str(x).strip() == 'Eight or more' else x)
 print( df.childs_convert.value_counts(dropna=False) )
 print("\nReady to continue.")
+#Data Cleaning: This transformation ensures that the childs column is free of ambiguous entries by standardizing certain text-based values.
+#Error Handling and Standardization: Converting 'Dk na' to NaN makes it easier to handle missing values in subsequent analysis. Similarly, converting 'Eight or more' to '8' allows treating this value numerically, if necessary.
+#Verification: Printing the value counts allows quick verification that the data was transformed correctly and that the cleaned column (childs_convert) is ready for further processing.
+#This approach makes the data easier to work with, especially if you plan to convert childs_convert to a numeric type for analysis or modeling.
+
 
 #%%
 # Alright, it worked. 
@@ -125,7 +134,18 @@ print("\nReady to continue.")
 
 # For more on np.random distributions, check out the docs
 # https://numpy.org/doc/1.16/reference/routines.random.html 
-# 
+#Purpose and Usefulness
+#Data Cleaning: Ensures that the age column is consistent, converting various data types and handling special cases to prevent problematic values from affecting analysis.
+#Handling Special Cases: For entries like "No answer" or "89 or older", it applies specific logic to handle them appropriately.
+#Use of Random Distribution: Adds some variability for older ages while capping them at 100, allowing for realistic yet flexible modeling of these values.
+#This approach provides a systematic way to ensure that all entries in the age column are cleaned and ready for further processing or analysis.
+
+
+
+
+
+
+
 
 
 #%%
@@ -188,7 +208,10 @@ def cleanDfIncome(row, colname): # colname can be 'rincome', 'income' etc
     return np.nan
 # end function cleanDfIncome
 print("\nReady to continue.")
-
+#Randomized Distribution within Ranges: Spreading values within each income range adds variability while preserving the original range constraints.
+#Realistic Handling of High-Income Bracket: Using a chi-square distribution for the top income category ($25k or more) reduces the risk of skewing results while providing reasonable variability for high-income respondents.
+#Data Cleaning and Preparation: This function transforms categorical income data into numeric values, enabling more meaningful statistical analysis.
+#This approach ensures that income data is standardized and transformed into a format suitable for analysis or modeling while preserving variability and avoiding bias from the high-income category’s overrepresentation.
 #%%
 # Now apply to df row-wise. 
 # Here with two arguments in the function, we use this syntax
