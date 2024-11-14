@@ -67,6 +67,7 @@ print("\nReady to continue.")
 # so that if we have newer dataset with the same issues, it will 
 # works like a charm
 # df.childs.str.replace('Dk na', np.nan ) # default regex=False
+
 df['childs_convert'] = df.childs.map(lambda x: np.nan if str(x).strip() == 'Dk na' else '8' if str(x).strip() == 'Eight or more' else x)
 print( df.childs_convert.value_counts(dropna=False) )
 print("\nReady to continue.")
