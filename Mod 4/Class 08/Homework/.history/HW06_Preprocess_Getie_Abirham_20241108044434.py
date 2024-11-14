@@ -60,7 +60,11 @@ df = pd.read_csv("Happy.csv")
 
 # %%
 df.head(), df.columns
+# %%
+unique_values = df['happy'].unique()
 
+# Display the unique values
+print(unique_values)
 
 # %%
 # preprocessing
@@ -161,14 +165,29 @@ plt.xlabel("Happiness Level")
 plt.ylabel("Income")
 plt.xticks(rotation=45)
 plt.show()
-# %%
-unique_values = df['happy'].unique()
-
-# Display the unique values
-print(unique_values)
 
 # %%
 # Scatterplot with jitter for happiness vs. number of children
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    data=df, 
+    x="childs", 
+    y="happy", 
+    hue="marital",  
+    alpha=0.5
+)
+plt.title("Happiness vs Number of Children with Jitter")
+plt.xlabel("Number of Children")
+plt.ylabel("Happiness Level")
+plt.show()
+
+
+# %%
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
 # Convert 'childs' column to numeric, coerce errors to NaN
 df['childs'] = pd.to_numeric(df['childs'], errors='coerce')
 
@@ -191,6 +210,8 @@ np.random.seed(0)  # For reproducibility
 jittered_x = df["childs"] + np.random.normal(0, 0.1, size=len(df))  # Jitter for 'childs'
 jittered_y = df["happy_numeric"] + np.random.normal(0, 0.1, size=len(df))  # Jitter for 'happy_numeric'
 
+
+# Adjusting the subtitle position to make it more visible and readable.
 plt.figure(figsize=(12, 7))
 scatter_plot = sns.scatterplot(
     x=jittered_x, 
@@ -198,18 +219,23 @@ scatter_plot = sns.scatterplot(
     hue="marital",  # Color by marital status
     data=df, 
     alpha=0.5,
-    palette="Set2"  
+    palette="Set2"  # Improved color palette for better distinction
 )
 
 # Customize y-ticks to show the original happiness levels instead of numeric values
 plt.yticks(ticks=np.arange(1, 7), labels=['Pretty happy', 'Very happy', 'Not too happy', 'No answer', "Don't know", 'Not applicable'])
+
 # Title and labels
 plt.title("Happiness vs. Number of Children with Jitter", fontsize=16, fontweight='bold')
+# plt.text(0.5, 6.5, "Exploring the Relationship Between Happiness, Number of Children, and Marital Status",
+        #  ha='center', fontsize=10, style='italic')  # Positioning the subtitle below the main title
+
 plt.xlabel("Number of Children", fontsize=12)
 plt.ylabel("Happiness Level", fontsize=12)
 
 # Customize legend
 plt.legend(title="Marital Status", bbox_to_anchor=(1.05, 1), loc='upper left')
+
 plt.tight_layout()  # Adjust layout to fit title and legend properly
 plt.show()
 

@@ -162,10 +162,6 @@ plt.ylabel("Income")
 plt.xticks(rotation=45)
 plt.show()
 # %%
-unique_values = df['happy'].unique()
-
-# Display the unique values
-print(unique_values)
 
 # %%
 # Scatterplot with jitter for happiness vs. number of children

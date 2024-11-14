@@ -60,7 +60,11 @@ df = pd.read_csv("Happy.csv")
 
 # %%
 df.head(), df.columns
+# %%
+unique_values = df['happy'].unique()
 
+# Display the unique values
+print(unique_values)
 
 # %%
 # preprocessing
@@ -161,11 +165,7 @@ plt.xlabel("Happiness Level")
 plt.ylabel("Income")
 plt.xticks(rotation=45)
 plt.show()
-# %%
-unique_values = df['happy'].unique()
 
-# Display the unique values
-print(unique_values)
 
 # %%
 # Scatterplot with jitter for happiness vs. number of children
@@ -191,6 +191,7 @@ np.random.seed(0)  # For reproducibility
 jittered_x = df["childs"] + np.random.normal(0, 0.1, size=len(df))  # Jitter for 'childs'
 jittered_y = df["happy_numeric"] + np.random.normal(0, 0.1, size=len(df))  # Jitter for 'happy_numeric'
 
+# Plot
 plt.figure(figsize=(12, 7))
 scatter_plot = sns.scatterplot(
     x=jittered_x, 
@@ -198,20 +199,24 @@ scatter_plot = sns.scatterplot(
     hue="marital",  # Color by marital status
     data=df, 
     alpha=0.5,
-    palette="Set2"  
+    palette="Set2"  # Improved color palette for better distinction
 )
 
 # Customize y-ticks to show the original happiness levels instead of numeric values
 plt.yticks(ticks=np.arange(1, 7), labels=['Pretty happy', 'Very happy', 'Not too happy', 'No answer', "Don't know", 'Not applicable'])
+
 # Title and labels
 plt.title("Happiness vs. Number of Children with Jitter", fontsize=16, fontweight='bold')
+
 plt.xlabel("Number of Children", fontsize=12)
 plt.ylabel("Happiness Level", fontsize=12)
 
 # Customize legend
 plt.legend(title="Marital Status", bbox_to_anchor=(1.05, 1), loc='upper left')
+
 plt.tight_layout()  # Adjust layout to fit title and legend properly
 plt.show()
+
 
 
 # %%

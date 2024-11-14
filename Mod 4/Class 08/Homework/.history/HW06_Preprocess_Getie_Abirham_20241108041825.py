@@ -60,7 +60,11 @@ df = pd.read_csv("Happy.csv")
 
 # %%
 df.head(), df.columns
+# %%
+unique_values = df['happy'].unique()
 
+# Display the unique values
+print(unique_values)
 
 # %%
 # preprocessing
@@ -161,14 +165,167 @@ plt.xlabel("Happiness Level")
 plt.ylabel("Income")
 plt.xticks(rotation=45)
 plt.show()
-# %%
-unique_values = df['happy'].unique()
-
-# Display the unique values
-print(unique_values)
 
 # %%
 # Scatterplot with jitter for happiness vs. number of children
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    data=df, 
+    x="childs", 
+    y="happy", 
+    hue="marital",  
+    alpha=0.5
+)
+plt.title("Happiness vs Number of Children with Jitter")
+plt.xlabel("Number of Children")
+plt.ylabel("Happiness Level")
+plt.show()
+
+# %%
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+# Ensure numeric values in 'childs' and 'happy' columns
+df["childs"] = pd.to_numeric(df["childs"], errors="coerce")
+df["happy"] = pd.to_numeric(df["happy"], errors="coerce")
+# %%
+def encode_happiness(df):
+    """
+    Maps happiness levels to numeric values.
+    """
+    if 'happiness' in df.columns:
+        happiness_mapping = {
+            'Not too happy': 1,
+            'Pretty happy': 2,
+            'Very happy': 3
+        }
+        df['happiness'] = df['happiness'].map(happiness_mapping)
+    return df
+
+# Apply the encoding function
+df = encode_happiness(df)
+
+# Verify the changes
+if 'happiness' in df.columns:
+    print("\n'happiness' column after encoding:")
+    print(df['happiness'].head())
+    print(df['happiness'].value_counts(dropna=False))
+
+# %%
+def handle_missing_values(df):
+    """
+    Handles missing values in the dataframe.
+    """
+    # Option 1: Remove rows with missing values
+    # df = df.dropna()
+
+    # Option 2: Impute missing values
+    # For numerical columns, you might use the mean or median
+    numeric_columns = df.select_dtypes(include=[np.number]).columns.tolist()
+    for col in numeric_columns:
+        if df[col].isnull().sum() > 0:
+            median_value = df[col].median()
+            df[col].fillna(median_value, inplace=True)
+
+    # For categorical columns, you might use the mode
+    categorical_columns = df.select_dtypes(include=['object']).columns.tolist()
+    for col in categorical_columns:
+        if df[col].isnull().sum() > 0:
+            mode_value = df[col].mode()[0]
+            df[col].fillna(mode_value, inplace=True)
+
+    return df
+
+# Apply the missing values handler
+df = handle_missing_values(df)
+
+# Verify the changes
+print("\nDataset information after handling missing values:")
+print(df.info())
+
+
+# %%
+
+# Jitter both x and y
+np.random.seed(0)  # For reproducibility
+jittered_x = df["childs"] + np.random.normal(0, 0.1, size=len(df))  # Jitter for 'childs'
+jittered_y = df["happy"] + np.random.normal(0, 0.1, size=len(df))   # Jitter for 'happy'
+
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    x=jittered_x, 
+    y=jittered_y, 
+    hue="marital",  # Variable for color
+    data=df, 
+    alpha=0.5
+)
+plt.title("Happiness vs. Number of Children with Jitter")
+plt.xlabel("Number of Children")
+plt.ylabel("Happiness Level")
+plt.legend(title="Marital Status")
+plt.show()
+
+
+# %%
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import pandas as pd
+
+# Assuming you have already imported your data into a DataFrame named df
+
+# Convert 'childs' column to numeric, coerce errors to NaN
+df['childs'] = pd.to_numeric(df['childs'], errors='coerce')
+
+# Mapping the categorical 'happy' values to numerical values for plotting
+happy_map = {
+    'Pretty happy': 1,
+    'Very happy': 2,
+    'Not too happy': 3,
+    'No answer': 4,
+    "Don't know": 5,
+    'Not applicable': 6
+}
+
+# Apply the mapping to create a numerical 'happy' column
+df['happy_numeric'] = df['happy'].map(happy_map)
+
+# Handle missing values in 'happy_numeric' (if any NaNs after mapping)
+df['happy_numeric'].fillna(0, inplace=True)  # Option to fill NaNs with 0 or another value
+
+# Jitter both x and y after cleaning data
+np.random.seed(0)  # For reproducibility
+jittered_x = df["childs"] + np.random.normal(0, 0.1, size=len(df))  # Jitter for 'childs'
+jittered_y = df["happy_numeric"] + np.random.normal(0, 0.1, size=len(df))  # Jitter for 'happy_numeric'
+
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    x=jittered_x, 
+    y=jittered_y, 
+    hue="marital",  # Variable for color
+    data=df, 
+    alpha=0.5
+)
+
+# Customizing the y-ticks to show the original categories instead of numeric values
+plt.yticks(ticks=np.arange(1, 7), labels=['Pretty happy', 'Very happy', 'Not too happy', 'No answer', "Don't know", 'Not applicable'])
+
+plt.title("Happiness vs. Number of Children with Jitter")
+plt.xlabel("Number of Children")
+plt.ylabel("Happiness Level")
+plt.legend(title="Marital Status")
+plt.show()
+
+
+# %%
+
+# import matplotlib.pyplot as plt
+# import seaborn as sns
+# import numpy as np
+
 # Convert 'childs' column to numeric, coerce errors to NaN
 df['childs'] = pd.to_numeric(df['childs'], errors='coerce')
 
@@ -191,6 +348,7 @@ np.random.seed(0)  # For reproducibility
 jittered_x = df["childs"] + np.random.normal(0, 0.1, size=len(df))  # Jitter for 'childs'
 jittered_y = df["happy_numeric"] + np.random.normal(0, 0.1, size=len(df))  # Jitter for 'happy_numeric'
 
+# Plot
 plt.figure(figsize=(12, 7))
 scatter_plot = sns.scatterplot(
     x=jittered_x, 
@@ -198,20 +356,24 @@ scatter_plot = sns.scatterplot(
     hue="marital",  # Color by marital status
     data=df, 
     alpha=0.5,
-    palette="Set2"  
+    palette="Set2"  # Improved color palette for better distinction
 )
 
 # Customize y-ticks to show the original happiness levels instead of numeric values
 plt.yticks(ticks=np.arange(1, 7), labels=['Pretty happy', 'Very happy', 'Not too happy', 'No answer', "Don't know", 'Not applicable'])
+
 # Title and labels
 plt.title("Happiness vs. Number of Children with Jitter", fontsize=16, fontweight='bold')
+
 plt.xlabel("Number of Children", fontsize=12)
 plt.ylabel("Happiness Level", fontsize=12)
 
 # Customize legend
 plt.legend(title="Marital Status", bbox_to_anchor=(1.05, 1), loc='upper left')
+
 plt.tight_layout()  # Adjust layout to fit title and legend properly
 plt.show()
+
 
 
 # %%

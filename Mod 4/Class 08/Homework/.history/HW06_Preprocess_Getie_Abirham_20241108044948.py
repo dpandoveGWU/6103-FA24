@@ -60,7 +60,11 @@ df = pd.read_csv("Happy.csv")
 
 # %%
 df.head(), df.columns
+# %%
+unique_values = df['happy'].unique()
 
+# Display the unique values
+print(unique_values)
 
 # %%
 # preprocessing
@@ -161,14 +165,10 @@ plt.xlabel("Happiness Level")
 plt.ylabel("Income")
 plt.xticks(rotation=45)
 plt.show()
-# %%
-unique_values = df['happy'].unique()
-
-# Display the unique values
-print(unique_values)
 
 # %%
 # Scatterplot with jitter for happiness vs. number of children
+
 # Convert 'childs' column to numeric, coerce errors to NaN
 df['childs'] = pd.to_numeric(df['childs'], errors='coerce')
 
@@ -190,6 +190,8 @@ df.dropna(subset=['childs', 'happy_numeric'], inplace=True)
 np.random.seed(0)  # For reproducibility
 jittered_x = df["childs"] + np.random.normal(0, 0.1, size=len(df))  # Jitter for 'childs'
 jittered_y = df["happy_numeric"] + np.random.normal(0, 0.1, size=len(df))  # Jitter for 'happy_numeric'
+
+
 
 plt.figure(figsize=(12, 7))
 scatter_plot = sns.scatterplot(
