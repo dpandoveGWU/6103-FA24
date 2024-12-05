@@ -15,7 +15,7 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
-# %%
+# 
 # Step 1: Generate simulated data
 np.random.seed(42)  # Set seed for reproducibility
 # %%
@@ -29,7 +29,6 @@ class_3 = np.random.normal(loc=10, scale=1, size=(20, 50))  # Class 3 centered a
 data = np.vstack([class_1, class_2, class_3])
 true_labels = np.array([0]*20 + [1]*20 + [2]*20)  # True class labels
 
-# %%
 # Step 2: Perform K-means clustering
 kmeans = KMeans(n_clusters=3, random_state=42)
 cluster_labels = kmeans.fit_predict(data)
@@ -37,7 +36,6 @@ cluster_labels = kmeans.fit_predict(data)
 # Compare clustering results with true labels
 comparison = pd.crosstab(true_labels, cluster_labels)
 
-# %%
 # Step 3: Scale the data and perform K-means clustering again
 scaler = StandardScaler()
 scaled_data = scaler.fit_transform(data)
@@ -51,5 +49,3 @@ comparison_scaled = pd.crosstab(true_labels, cluster_labels_scaled)
 comparison, comparison_scaled
 
 
-
-# %%

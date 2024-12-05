@@ -318,324 +318,10 @@ logit_model_w2_age = train_logistic_model(X_train_w2, y_train_w2, X_test_w2, y_t
 
 # %%[markdown]
 # The Logistic regression model with only Industry as a predictor performed well with an accurracy of 89%.
-# Adding other predictors didn't improve the model performance, this indicates that other predictors have less significant impact on income.
-
-# %%
-# Decision Tree models
-from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier, plot_tree
-from sklearn.metrics import mean_squared_error, mean_absolute_error, accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, roc_curve, confusion_matrix
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.compose import ColumnTransformer
-
-# Load World1 and World2 datasets (already provided in your workspace)
-
-# Data dictionary
-categorical_columns = ["marital", "gender", "ethnic", "industry"]
-numerical_columns = ["age00", "education"]
-
-# Preprocessing: Scaling numerical and encoding categorical variables
-preprocessor = ColumnTransformer(
-    transformers=[
-        ("num", StandardScaler(), numerical_columns),
-        ("cat", OneHotEncoder(drop="first"), categorical_columns)
-    ]
-)
-
-# Apply preprocessing to World1
-X_world1 = world1.drop(columns=["income00", "target"], errors="ignore")  # Exclude target variables
-y_world1_reg = world1["income00"]  # Target for regression
-y_world1_class = world1["target"]  # Target for classification (binary target)
-X_world1_preprocessed = preprocessor.fit_transform(X_world1)
-
-# Apply preprocessing to World2
-X_world2 = world2.drop(columns=["income00", "target"], errors="ignore")
-y_world2_reg = world2["income00"]
-y_world2_class = world2["target"]
-X_world2_preprocessed = preprocessor.transform(X_world2)
-
-# Split datasets into training and testing sets
-# World1
-X_train_reg_w1, X_test_reg_w1, y_train_reg_w1, y_test_reg_w1 = train_test_split(
-    X_world1_preprocessed, y_world1_reg, test_size=0.3, random_state=42
-)
-X_train_class_w1, X_test_class_w1, y_train_class_w1, y_test_class_w1 = train_test_split(
-    X_world1_preprocessed, y_world1_class, test_size=0.3, random_state=42
-)
-
-# World2
-X_train_reg_w2, X_test_reg_w2, y_train_reg_w2, y_test_reg_w2 = train_test_split(
-    X_world2_preprocessed, y_world2_reg, test_size=0.3, random_state=42
-)
-X_train_class_w2, X_test_class_w2, y_train_class_w2, y_test_class_w2 = train_test_split(
-    X_world2_preprocessed, y_world2_class, test_size=0.3, random_state=42
-)
-
-
-
-# Helper function to evaluate regression models
-def evaluate_regression_model(model, X_test, y_test, title):
-    y_pred = model.predict(X_test)
-
-    # Metrics
-    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-    mae = mean_absolute_error(y_test, y_pred)
-    deviance = np.var(y_test - y_pred)
-
-    # Print Outputs
-    print(f"\n{title} Performance:")
-    print(f"Root Mean Squared Error (RMSE): {rmse:.2f}")
-    print(f"Mean Absolute Error (MAE): {mae:.2f}")
-    print(f"Deviance: {deviance:.2f}")
-    return y_pred
-
-# Helper function to evaluate classification models
-def evaluate_classification_model(model, X_test, y_test, title):
-    y_pred = model.predict(X_test)
-    y_prob = model.predict_proba(X_test)[:, 1]  # Probabilities for ROC-AUC
-
-    # Metrics
-    conf_matrix = confusion_matrix(y_test, y_pred)
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred)
-    roc_auc = roc_auc_score(y_test, y_prob)
-
-    # ROC Curve
-    fpr, tpr, _ = roc_curve(y_test, y_prob)
-    plt.figure(figsize=(8, 6))
-    plt.plot(fpr, tpr, label=f"{title} (AUC = {roc_auc:.2f})")
-    plt.plot([0, 1], [0, 1], "k--")
-    plt.xlabel("False Positive Rate")
-    plt.ylabel("True Positive Rate")
-    plt.title(f"ROC Curve - {title}")
-    plt.legend()
-    plt.show()
-
-    # Print Outputs
-    print(f"\n{title} Performance:")
-    print("Confusion Matrix:")
-    print(conf_matrix)
-    print(f"Accuracy: {accuracy:.2f}")
-    print(f"Precision: {precision:.2f}")
-    print(f"Recall: {recall:.2f}")
-    print(f"F1 Score: {f1:.2f}")
-    print(f"ROC-AUC: {roc_auc:.2f}")
-
-# 1. Decision Tree Regression for World1
-print("\nDecision Tree Regression - World1:")
-tree_reg_w1 = DecisionTreeRegressor(max_depth=5, random_state=42)
-tree_reg_w1.fit(X_train_reg_w1, y_train_reg_w1)
-evaluate_regression_model(tree_reg_w1, X_test_reg_w1, y_test_reg_w1, "Decision Tree Regression - World1")
-
-# Add cost complexity pruning for World1 regression
-print("\nDecision Tree Regression with Pruning - World1:")
-path_reg_w1 = tree_reg_w1.cost_complexity_pruning_path(X_train_reg_w1, y_train_reg_w1)
-ccp_alphas_reg_w1 = path_reg_w1.ccp_alphas
-for alpha in ccp_alphas_reg_w1[::3]:  # Test pruning with every 3rd alpha for efficiency
-    tree_reg_pruned_w1 = DecisionTreeRegressor(max_depth=5, random_state=42, ccp_alpha=alpha)
-    tree_reg_pruned_w1.fit(X_train_reg_w1, y_train_reg_w1)
-    print(f"Alpha: {alpha}")
-    evaluate_regression_model(tree_reg_pruned_w1, X_test_reg_w1, y_test_reg_w1, f"Decision Tree Regression Pruned (α={alpha}) - World1")
-
-# 2. Classification Tree for World1
-print("\nClassification Tree - World1:")
-tree_class_w1 = DecisionTreeClassifier(max_depth=5, random_state=42)
-tree_class_w1.fit(X_train_class_w1, y_train_class_w1)
-evaluate_classification_model(tree_class_w1, X_test_class_w1, y_test_class_w1, "Classification Tree - World1")
-
-# Add cost complexity pruning for World1 classification
-print("\nClassification Tree with Pruning - World1:")
-path_class_w1 = tree_class_w1.cost_complexity_pruning_path(X_train_class_w1, y_train_class_w1)
-ccp_alphas_class_w1 = path_class_w1.ccp_alphas
-for alpha in ccp_alphas_class_w1[::3]:  # Test pruning with every 3rd alpha for efficiency
-    tree_class_pruned_w1 = DecisionTreeClassifier(max_depth=5, random_state=42, ccp_alpha=alpha)
-    tree_class_pruned_w1.fit(X_train_class_w1, y_train_class_w1)
-    print(f"Alpha: {alpha}")
-    evaluate_classification_model(tree_class_pruned_w1, X_test_class_w1, y_test_class_w1, f"Classification Tree Pruned (α={alpha}) - World1")
-
-# Repeat the same process for World2
-print("\nDecision Tree Regression - World2:")
-tree_reg_w2 = DecisionTreeRegressor(max_depth=5, random_state=42)
-tree_reg_w2.fit(X_train_reg_w2, y_train_reg_w2)
-evaluate_regression_model(tree_reg_w2, X_test_reg_w2, y_test_reg_w2, "Decision Tree Regression - World2")
-
-print("\nClassification Tree - World2:")
-tree_class_w2 = DecisionTreeClassifier(max_depth=5, random_state=42)
-tree_class_w2.fit(X_train_class_w2, y_train_class_w2)
-evaluate_classification_model(tree_class_w2, X_test_class_w2, y_test_class_w2, "Classification Tree - World2")
-
-# %%[markdown]
-# For the decision tree I performed Pruning applied using cost complexity pruning (`ccp_alpha`), progressively adjusting alpha values to balance model complexity and performance.
-# and it improved the model performance until \( \alpha = 162,928.86 \), beyond which over-pruning reduced accuracy.
-# The unpruned classification tree had better overall accuracy (83%) and ROC-AUC (0.91), while pruning improved recall (97%) but reduced accuracy (76%) and ROC-AUC (0.76), indicating a trade-off.
-
-# %%
-
-from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
-from sklearn.metrics import mean_squared_error, mean_absolute_error, accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, roc_curve
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Helper function to evaluate regression models
-def evaluate_rf_regression(model, X_test, y_test, title):
-    y_pred = model.predict(X_test)
-
-    # Metrics
-    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-    mae = mean_absolute_error(y_test, y_pred)
-    r2 = model.score(X_test, y_test)
-
-    # Print Outputs
-    print(f"\n{title} Performance:")
-    print(f"Root Mean Squared Error (RMSE): {rmse:.2f}")
-    print(f"Mean Absolute Error (MAE): {mae:.2f}")
-    print(f"R² Score: {r2:.2f}")
-
-# Helper function to evaluate classification models
-def evaluate_rf_classification(model, X_test, y_test, title):
-    y_pred = model.predict(X_test)
-    y_prob = model.predict_proba(X_test)[:, 1]  # Probabilities for ROC-AUC
-
-    # Metrics
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred)
-    roc_auc = roc_auc_score(y_test, y_prob)
-
-    # ROC Curve
-    fpr, tpr, _ = roc_curve(y_test, y_prob)
-    plt.figure(figsize=(8, 6))
-    plt.plot(fpr, tpr, label=f"{title} (AUC = {roc_auc:.2f})")
-    plt.plot([0, 1], [0, 1], "k--")
-    plt.xlabel("False Positive Rate")
-    plt.ylabel("True Positive Rate")
-    plt.title(f"ROC Curve - {title}")
-    plt.legend()
-    plt.show()
-
-    # Print Outputs
-    print(f"\n{title} Performance:")
-    print(f"Accuracy: {accuracy:.2f}")
-    print(f"Precision: {precision:.2f}")
-    print(f"Recall: {recall:.2f}")
-    print(f"F1 Score: {f1:.2f}")
-    print(f"ROC-AUC: {roc_auc:.2f}")
-
-# 1. Random Forest Regression - World1
-print("\nRandom Forest Regression - World1:")
-rf_reg_w1 = RandomForestRegressor(n_estimators=100, max_depth=5, random_state=42)
-rf_reg_w1.fit(X_train_reg_w1, y_train_reg_w1)
-evaluate_rf_regression(rf_reg_w1, X_test_reg_w1, y_test_reg_w1, "Random Forest Regression - World1")
-
-# 2. Random Forest Regression - World2
-print("\nRandom Forest Regression - World2:")
-rf_reg_w2 = RandomForestRegressor(n_estimators=100, max_depth=5, random_state=42)
-rf_reg_w2.fit(X_train_reg_w2, y_train_reg_w2)
-evaluate_rf_regression(rf_reg_w2, X_test_reg_w2, y_test_reg_w2, "Random Forest Regression - World2")
-
-# 3. Random Forest Classification - World1
-print("\nRandom Forest Classification - World1:")
-rf_class_w1 = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=42)
-rf_class_w1.fit(X_train_class_w1, y_train_class_w1)
-evaluate_rf_classification(rf_class_w1, X_test_class_w1, y_test_class_w1, "Random Forest Classification - World1")
-
-# 4. Random Forest Classification - World2
-print("\nRandom Forest Classification - World2:")
-rf_class_w2 = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=42)
-rf_class_w2.fit(X_train_class_w2, y_train_class_w2)
-evaluate_rf_classification(rf_class_w2, X_test_class_w2, y_test_class_w2, "Random Forest Classification - World2")
-
+# Adding other predictors didn
 
 #%% [markdown]
 #
-# %%
-from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier
-from sklearn.metrics import mean_squared_error, mean_absolute_error, accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, roc_curve
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Helper function to evaluate regression models
-def evaluate_knn_regression(model, X_test, y_test, title):
-    y_pred = model.predict(X_test)
-
-    # Metrics
-    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-    mae = mean_absolute_error(y_test, y_pred)
-    r2 = model.score(X_test, y_test)
-
-    # Print Outputs
-    print(f"\n{title} Performance:")
-    print(f"Root Mean Squared Error (RMSE): {rmse:.2f}")
-    print(f"Mean Absolute Error (MAE): {mae:.2f}")
-    print(f"R² Score: {r2:.2f}")
-
-# Helper function to evaluate classification models
-def evaluate_knn_classification(model, X_test, y_test, title):
-    y_pred = model.predict(X_test)
-    y_prob = model.predict_proba(X_test)[:, 1]  # Probabilities for ROC-AUC
-
-    # Metrics
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred)
-    roc_auc = roc_auc_score(y_test, y_prob)
-
-    # ROC Curve
-    fpr, tpr, _ = roc_curve(y_test, y_prob)
-    plt.figure(figsize=(8, 6))
-    plt.plot(fpr, tpr, label=f"{title} (AUC = {roc_auc:.2f})")
-    plt.plot([0, 1], [0, 1], "k--")
-    plt.xlabel("False Positive Rate")
-    plt.ylabel("True Positive Rate")
-    plt.title(f"ROC Curve - {title}")
-    plt.legend()
-    plt.show()
-
-    # Print Outputs
-    print(f"\n{title} Performance:")
-    print(f"Accuracy: {accuracy:.2f}")
-    print(f"Precision: {precision:.2f}")
-    print(f"Recall: {recall:.2f}")
-    print(f"F1 Score: {f1:.2f}")
-    print(f"ROC-AUC: {roc_auc:.2f}")
-
-# 1. KNN Regression - World1
-print("\nKNN Regression - World1:")
-knn_reg_w1 = KNeighborsRegressor(n_neighbors=5)  # Default k=5
-knn_reg_w1.fit(X_train_reg_w1, y_train_reg_w1)
-evaluate_knn_regression(knn_reg_w1, X_test_reg_w1, y_test_reg_w1, "KNN Regression - World1")
-
-# 2. KNN Regression - World2
-print("\nKNN Regression - World2:")
-knn_reg_w2 = KNeighborsRegressor(n_neighbors=5)
-knn_reg_w2.fit(X_train_reg_w2, y_train_reg_w2)
-evaluate_knn_regression(knn_reg_w2, X_test_reg_w2, y_test_reg_w2, "KNN Regression - World2")
-
-# 3. KNN Classification - World1
-print("\nKNN Classification - World1:")
-knn_class_w1 = KNeighborsClassifier(n_neighbors=5)
-knn_class_w1.fit(X_train_class_w1, y_train_class_w1)
-evaluate_knn_classification(knn_class_w1, X_test_class_w1, y_test_class_w1, "KNN Classification - World1")
-
-# 4. KNN Classification - World2
-print("\nKNN Classification - World2:")
-knn_class_w2 = KNeighborsClassifier(n_neighbors=5)
-knn_class_w2.fit(X_train_class_w2, y_train_class_w2)
-evaluate_knn_classification(knn_class_w2, X_test_class_w2, y_test_class_w2, "KNN Classification - World2")
-
-# %%[markdown]
-# The KNN Classification model performed well for both World1 and World2, achieving high accuracy and balanced precision-recall with (ROC-AUC: 0.94).
-
-
-
-# %%[markdown]
 # # Free Worlds (Continuation from midterm: Part II - 25%)
 # 
 # To-do: Complete the method/function predictFinalIncome towards the end of this Part II codes.  
@@ -785,18 +471,13 @@ class myModel:
   def predictIncome( self, person ): # perdict the new income one MONTH later. (At least on average, each month the income grows.)
     return person['income']*self.predictGrowthFactor( person )
 
-  
-  def predictFinalIncome(self, n, person):
-    """
+  def predictFinalIncome( self, n, person ): 
     # predict final income after n months from the initial record.
     # the right codes should be no longer than a few lines.
     # If possible, please also consider the fact that the person is getting older by the month. 
     # The variable age value keeps changing as we progress with the future prediction.
-    """
-    for _ in range(n):
-        person.age += 1 / 12  # Increment age by 1/12 for each month
-        person.income *= self.predictGrowthFactor(person)  # Update income with growth factor
-    return person.income
+    return self.predictFinalIncome(n-1,person)*self.predictGrowthFactor(person) if n>0 else self.income
+    return # ??? need to return the income level after n months.
 
 
 
@@ -825,7 +506,7 @@ plato = Person( { "age": 58, "education": 20, "gender": 1, "marital": 0, "ethnic
 print(f'utop: {utopModel.predictGrowthFactor(plato)}') # This is the current growth factor for plato
 print(f'utop: {utopModel.predictIncome(plato)}') # This is the income after 1 month
 # Do the following line when your new function predictFinalIncome is ready
-print(f'utop: {utopModel.predictFinalIncome(months,plato)}')
+# print(f'utop: {utopModel.predictFinalIncome(months,plato)}')
 #
 # If plato ever gets a raise, or get older, you can update the info with a dictionary:
 # plato.update( { "age": 59, "education": 21, "marital": 1, "income": 130000 } )
@@ -835,47 +516,11 @@ aristotle = Person( { "age": 58, "education": 20, "gender": 1, "marital": 0, "et
 print(f'bias: {biasModel.predictGrowthFactor(aristotle)}') # This is the current growth factor for aristotle
 print(f'bias: {biasModel.predictIncome(aristotle)}') # This is the income after 1 month
 # Do the following line when your new function predictFinalIncome is ready
-print(f'bias: {biasModel.predictFinalIncome(months,aristotle)}')
-
-# Example of a custom person
-bewketu = Person({
-    "age": 45,
-    "education": 18,
-    "gender": 0,       # Female
-    "marital": 1,      # Married
-    "ethnic": 1,
-    "industry": 5,     # Manufacturing
-    "income": 75000    # Starting income
-})
-
-print("\nFor a bewketu Person in the Utopia Model:")
-print(f"Growth Factor: {utopModel.predictGrowthFactor(bewketu):.6f}")
-print(f"Income After 1 Month: {utopModel.predictIncome(bewketu):.2f}")
-print(f"Income After {months} Months: {utopModel.predictFinalIncome(months, bewketu):.2f}")
-
-# Example of a custom person
-beza = Person({
-    "age": 30,
-    "education": 21,
-    "gender": 0,       # Female
-    "marital": 1,      # Married
-    "ethnic": 1,
-    "industry": 5,     # Manufacturing
-    "income": 75000    # Starting income
-})
-
-print("\nFor a beza Person in the Utopia Model:")
-print(f"Growth Factor: {utopModel.predictGrowthFactor(beza):.6f}")
-print(f"Income After 1 Month: {utopModel.predictIncome(beza):.2f}")
-print(f"Income After {months} Months: {utopModel.predictFinalIncome(months, beza):.2f}")
+# print(f'bias: {biasModel.predictFinalIncome(months,aristotle)}')
 
 print("\nReady to continue.")
 
-# %%[markdown]
-# Bewketu (45 years, moderate education) and Beza (30 years, high education) in the utopia model:
-# Bewketu’s growth factor (1.0032) was slightly lower than Beza’s (1.0033), reflecting the positive impact of higher education.
-# After 12 months, their incomes increased to $77,966.59 and $78,024.50, respectively, showing how differences in demographics, particularly age and education, influence earnings.
-# Yes, they exist in your worlds as modeled individuals interacting with your utopia and biased simulations.
+
 #%% [markdown]
 # # Evolution (Part III - 25%)
 # 
@@ -895,44 +540,6 @@ print("\nReady to continue.")
 # Answer this in terms of distribution of income only. I don't care about 
 # other utopian measures in this question here. 
 # 
-# %%
-import pandas as pd
-import matplotlib.pyplot as plt
-
-# Step 1: Create incomeFinal columns in World#2
-def evolve_world(world_df, model, months):
-    income_final = []
-    for _, row in world_df.iterrows():
-        # Create a Person instance
-        person = Person(row.to_dict())
-        # Predict income after 'months' using the provided model
-        final_income = model.predictFinalIncome(months, person)
-        income_final.append(final_income)
-    return income_final
-
-# Apply utopia and biased models to World#2
-world2["incomeFinalUtopia"] = evolve_world(world2, utopModel, 360)
-world2["incomeFinalBias"] = evolve_world(world2, biasModel, 360)
-
-# Step 2: Visualize income distributions
-plt.figure(figsize=(12, 6))
-plt.hist(world2["incomeFinalUtopia"], bins=50, alpha=0.7, label="Utopia Model", color="blue")
-plt.hist(world2["incomeFinalBias"], bins=50, alpha=0.7, label="Biased Model", color="red")
-plt.xlabel("Final Income After 30 Years")
-plt.ylabel("Frequency")
-plt.title("Income Distributions After 30 Years")
-plt.legend()
-plt.show()
-
-# Step 3: Compare statistics
-utopia_stats = world2["incomeFinalUtopia"].describe()
-bias_stats = world2["incomeFinalBias"].describe()
-
-print("Utopia Model Income Statistics After 30 Years:")
-print(utopia_stats)
-print("\nBiased Model Income Statistics After 30 Years:")
-print(bias_stats)
-
 
 #%% 
 # # Reverse Action (Part IV - 25%)

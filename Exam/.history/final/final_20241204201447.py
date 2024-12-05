@@ -848,34 +848,14 @@ bewketu = Person({
     "income": 75000    # Starting income
 })
 
-print("\nFor a bewketu Person in the Utopia Model:")
+print("\nFor a Custom Person in the Utopia Model:")
 print(f"Growth Factor: {utopModel.predictGrowthFactor(bewketu):.6f}")
-print(f"Income After 1 Month: {utopModel.predictIncome(bewketu):.2f}")
-print(f"Income After {months} Months: {utopModel.predictFinalIncome(months, bewketu):.2f}")
-
-# Example of a custom person
-beza = Person({
-    "age": 30,
-    "education": 21,
-    "gender": 0,       # Female
-    "marital": 1,      # Married
-    "ethnic": 1,
-    "industry": 5,     # Manufacturing
-    "income": 75000    # Starting income
-})
-
-print("\nFor a beza Person in the Utopia Model:")
-print(f"Growth Factor: {utopModel.predictGrowthFactor(beza):.6f}")
-print(f"Income After 1 Month: {utopModel.predictIncome(beza):.2f}")
-print(f"Income After {months} Months: {utopModel.predictFinalIncome(months, beza):.2f}")
+print(f"Income After 1 Month: {utopModel.predictIncome(new_person):.2f}")
+print(f"Income After {months} Months: {utopModel.predictFinalIncome(months, new_person):.2f}")
 
 print("\nReady to continue.")
 
-# %%[markdown]
-# Bewketu (45 years, moderate education) and Beza (30 years, high education) in the utopia model:
-# Bewketu’s growth factor (1.0032) was slightly lower than Beza’s (1.0033), reflecting the positive impact of higher education.
-# After 12 months, their incomes increased to $77,966.59 and $78,024.50, respectively, showing how differences in demographics, particularly age and education, influence earnings.
-# Yes, they exist in your worlds as modeled individuals interacting with your utopia and biased simulations.
+
 #%% [markdown]
 # # Evolution (Part III - 25%)
 # 
@@ -895,44 +875,6 @@ print("\nReady to continue.")
 # Answer this in terms of distribution of income only. I don't care about 
 # other utopian measures in this question here. 
 # 
-# %%
-import pandas as pd
-import matplotlib.pyplot as plt
-
-# Step 1: Create incomeFinal columns in World#2
-def evolve_world(world_df, model, months):
-    income_final = []
-    for _, row in world_df.iterrows():
-        # Create a Person instance
-        person = Person(row.to_dict())
-        # Predict income after 'months' using the provided model
-        final_income = model.predictFinalIncome(months, person)
-        income_final.append(final_income)
-    return income_final
-
-# Apply utopia and biased models to World#2
-world2["incomeFinalUtopia"] = evolve_world(world2, utopModel, 360)
-world2["incomeFinalBias"] = evolve_world(world2, biasModel, 360)
-
-# Step 2: Visualize income distributions
-plt.figure(figsize=(12, 6))
-plt.hist(world2["incomeFinalUtopia"], bins=50, alpha=0.7, label="Utopia Model", color="blue")
-plt.hist(world2["incomeFinalBias"], bins=50, alpha=0.7, label="Biased Model", color="red")
-plt.xlabel("Final Income After 30 Years")
-plt.ylabel("Frequency")
-plt.title("Income Distributions After 30 Years")
-plt.legend()
-plt.show()
-
-# Step 3: Compare statistics
-utopia_stats = world2["incomeFinalUtopia"].describe()
-bias_stats = world2["incomeFinalBias"].describe()
-
-print("Utopia Model Income Statistics After 30 Years:")
-print(utopia_stats)
-print("\nBiased Model Income Statistics After 30 Years:")
-print(bias_stats)
-
 
 #%% 
 # # Reverse Action (Part IV - 25%)

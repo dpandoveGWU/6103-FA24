@@ -37,7 +37,7 @@ cluster_labels = kmeans.fit_predict(data)
 # Compare clustering results with true labels
 comparison = pd.crosstab(true_labels, cluster_labels)
 
-# %%
+
 # Step 3: Scale the data and perform K-means clustering again
 scaler = StandardScaler()
 scaled_data = scaler.fit_transform(data)
@@ -51,5 +51,3 @@ comparison_scaled = pd.crosstab(true_labels, cluster_labels_scaled)
 comparison, comparison_scaled
 
 
-
-# %%

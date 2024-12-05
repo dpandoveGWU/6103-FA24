@@ -51,5 +51,3 @@ comparison_scaled = pd.crosstab(true_labels, cluster_labels_scaled)
 comparison, comparison_scaled
 
 
-
-# %%
