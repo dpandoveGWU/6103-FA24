@@ -294,7 +294,7 @@ for K in range(1, 20):
 # Re-do our analysis with scale on X
 #scaling the features of a dataset before analysis
 from sklearn.preprocessing import scale
-xsadmit = pd.DataFrame( scale(xadmit), columns=xadmit.columns )  # reminder: xadmit = dfadmit[['gre', 'gpa', 'rank']]
+xsadmit = pd.DataFrame(scale(xadmit), columns=xadmit.columns )  # reminder: xadmit = dfadmit[['gre', 'gpa', 'rank']]
 # Note that scale( ) coerce the object from pd.dataframe to np.array  
 # Need to reconstruct the pandas df with column names
 # xsadmit.rank = xadmit.rank
@@ -323,6 +323,7 @@ print(np.mean(scv_results))
 # (1) Predict survival of the titanic passenger?
 # (2) Predict the pclass of the titanic passenger?
 # (3) Use the wine dataset to classify the target class ['class_0', 'class_1', 'class_2']
+
 # Try both unscaled and scaled data, 
 # Only need to do the CV method for in all cases. 
 # (4) Now we have logit and KNN models to predict admit in the first dataset, and 

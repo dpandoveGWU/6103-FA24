@@ -1,0 +1,180 @@
+
+#Support Vector Classifier
+
+svm_linear = SVC(C = 100, kernel = 'linear')
+C=100:
+This is the regularization parameter.
+It controls the trade-off between achieving a wide margin and minimizing classification errors.
+- A smaller C value gives you a larger margin but might allow more misclassifications (more generalized model).
+- A larger C value (like 100 here) focuses on correctly classifying every training point, possibly at the cost of a smaller margin (less generalized model).
+
+kernel='linear':
+Specifies the type of kernel used by the SVM.
+Since it’s 'linear', the model assumes that the data is linearly separable and uses a straight line (or hyperplane in higher dimensions) as the decision boundary.
+
+svm_linear.fit(X, y)
+X: The training data, typically a matrix where each row is a data point and each column is a feature.
+y: The target labels for the training data, usually a vector of class labels (e.g., 0 or 1, or -1 and 1 for binary classification).
+This step trains the SVM by finding the optimal hyperplane (a straight line in the case of a linear kernel) that separates the data into the classes given in y.
+
+What Happens During Training?
+Hyperplane Calculation:
+The SVM calculates a linear boundary (hyperplane) in the feature space that separates the classes in y.
+It tries to maximize the margin (distance between the hyperplane and the closest points, called support vectors).
+
+Regularization with C:
+During this process, C determines how much the model penalizes misclassifications:
+With C=100, the model will be very strict, trying to classify every point correctly, even if it results in a narrower margin.
+***********************************************************************************
+
+svm_linear.coef_
+svm_linear.intercept_
+
+Example: 
+svm_linear.coef_ = [[2, -3]]
+svm_linear.intercept_ = [-0.5]
+
+The decision boundary equation becomes:
+2x1 - 3x2 - 0.5  = 0 
+
+The point X = (x1,x2) will be classified based on whether the result of
+2x1 - 3x2 - 0.5  = 0 is positive or negative
+
+*******************************************************************************
+
+kfold = KFold(5, random_state=0, shuffle=True)
+It is a cross-validation strategy that splits the data into k folds (5 folds here).
+In each iteration, the model is trained on 𝑘−1
+k−1 folds and tested on the remaining 1 fold.
+This ensures that the model is evaluated on all parts of the data, providing a reliable estimate of performance.random_state=0:
+Ensures reproducibility by fixing the random shuffling.
+shuffle=True:
+Randomizes the splitting of data into folds to reduce bias from the order of data.
+
+grid = GridSearchCV(svm_linear, 
+                    {'C': [0.001, 0.01, 0.1, 1, 5, 10, 100]}, 
+                    cv=kfold, scoring='accuracy')
+
+GridSearchCV: It automates the process of finding the best hyperparameters for a model by performing an exhaustive search over specified parameter values.
+It combines hyperparameter tuning and cross-validation to find the best parameter combination
+
+Parameters:
+svm_linear: The SVM model with a linear kernel created earlier.
+{'C': [...]}: A dictionary specifying the parameter(s) to tune. Here, the C parameter is tested with 7 different values: [0.001, 0.01, 0.1, 1, 5, 10, 100].
+cv=kfold: Uses the 5-fold cross-validation strategy defined by kfold to evaluate each parameter combination.
+scoring='accuracy': Evaluates the model based on classification accuracy.
+
+grid.fit(X, y)
+Trains and evaluates the SVM model for each value of C using 5-fold cross-validation.
+The process involves:
+Splitting the data into training and validation sets for each fold.
+Training the SVM model on the training folds.
+Evaluating it on the validation fold.
+Repeating this for all values of C and finding the one that performs the best.
+
+grid.best_params_
+Returns the value of C that gives the best accuracy across all folds.
+Example: {'C': 1} means that 
+𝐶=1
+C=1 resulted in the highest cross-validation accuracy.
+
+grid.cv_results_['mean_test_score']
+grid.cv_results_:
+A dictionary containing detailed results for each combination of parameters.
+'mean_test_score' gives the average accuracy (mean of cross-validation scores) for each value of C.
+*******************************************************************************************************
+
+X_test = rng.standard_normal((20, 2))
+This generates 20 samples, each with 2 features, from a standard normal distribution (mean = 0, standard deviation = 1).
+X_test will be a 20×2 array.
+
+y_test = np.array([-1] * 10 + [1] * 10)
+Creates an array of 20 elements:
+The first 10 are labeled as -1 (one class).
+The next 10 are labeled as 1 (another class).
+
+X_test[y_test == 1] += 1
+y_test == 1:
+
+This creates a boolean mask where True corresponds to the indices of X_test where y_test equals 1.
+Example: [False, False, ..., True, True, ...].
+X_test[y_test == 1]:
+Selects the rows in X_test where y_test equals 1 (the last 10 rows).
++= 1:
+Adds 1 to both features (columns) of the selected rows.
+This shifts the data points for class 1 by +1 in both feature dimensions, creating some separation between the two classes.
+
+********************************************************************************************************************************
+
+grid.best_estimator_:
+Returns the SVM model with the best C value (as determined by GridSearchCV).
+This model is already trained on the full training dataset using the optimal C.
+best_.predict(X_test):
+Uses the best SVM model to make predictions on the test dataset X_test.
+The predicted labels (y_hat) will be a 1D array of size 20, with each value being either -1 or 1, depending on the classifier's output.
+best_.score(X_test, y_test):
+Computes the accuracy score for the test dataset
+Compares the predicted labels (y_hat) with the true labels (y_test).
+Returns a value between 0 and 1, where 1 means all predictions are correct.
+*********************************************************************************************************************************
+*********************************************************************************************************************************
+
+# Non-linear boundary
+X = rng.standard_normal((200, 2))
+Creates a 200×2 array, where each of the 200 rows is a sample with 2 features (columns).
+Each feature value is drawn from a standard normal distribution 
+X:This is the feature matrix for 200 samples.
+
+y = np.array([1] * 150 + [2] * 50)
+[1] * 150 + [2] * 50:
+Creates a list with 150 ones followed by 50 twos.
+Labels the first 150 samples as class 1 and the remaining 50 samples as class 2.
+np.array([...]):
+Converts the list into a NumPy array.
+y: A 1D array of length 200 representing the class labels.
+
+X[:100] += 2
+X[:100]:Selects the first 100 rows of X (corresponding to 100 samples).
++= 2:Adds 2 to each feature value (both columns) of these rows.
+This shifts the samples for the first 100 samples (a subset of class 1) closer to 
+(2,2) in feature space.
+
+X[100:150] -= 2
+X[100:150]:
+Selects the next 50 rows of X (another subset of class 1).
+-= 2:
+Subtracts 2 from each feature value of these rows.
+This shifts these samples closer to 
+(−2,−2) in feature space.
+
+Resulting Dataset:
+Features (X):First 100 samples (subset of class 1): Clustered around (2,2).
+Next 50 samples (subset of class 1): Clustered around (−2,−2).
+Remaining 50 samples (class 2): Not shifted, centered around (0,0).
+Labels (y):
+First 150 samples: Labeled as class 1.
+Last 50 samples: Labeled as class 2.
+
+********************************************************************************
+svm_rbf = SVC(kernel='rbf', gamma=1, C=1)
+
+SVC:
+
+A class from scikit-learn used to implement Support Vector Classifiers.
+kernel='rbf':
+Specifies the Radial Basis Function (RBF) kernel, a popular non-linear kernel.
+The RBF kernel transforms the input feature space into a higher-dimensional space where a hyperplane can better separate the classes.
+gamma=1:
+Gamma controls how far the influence of a single training sample reaches.
+Small gamma: Points far away from a support vector have significant influence. The decision boundary is smoother.
+Large gamma: Points closer to a support vector have more influence. The decision boundary becomes more complex and tightly fits the data.
+Here, gamma=1
+gamma=1, meaning the decision boundary is influenced by points within a moderate radius.
+C=1:
+The regularization parameter:
+Balances maximizing the margin and minimizing classification errors.
+Small C: Allows for a wider margin but may misclassify some points (more generalized).
+Large C: Focuses on classifying all training points correctly but may overfit (less generalized).
+
+
+
